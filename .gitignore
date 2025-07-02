@@ -1,0 +1,66 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+.venv/
+venv/
+ENV/
+env/
+.pip/
+
+# VS Code and IDE settings
+.vscode/
+.idea/
+
+# Environment variables
+.env
+.env.*
+
+# Python egg and packaging files
+*.egg-info/
+*.egg
+dist/
+build/
+
+# Logs and test output
+*.log
+*.out
+*.txt
+coverage.*
+htmlcov/
+.cache/
+pytest_cache/
+.tox/
+
+# Mypy
+.mypy_cache/
+.dmypy.json
+.pyre/
+
+# Pytest
+.pytest_cache/
+
+# Database files
+*.db
+*.sqlite3
+
+# macOS
+.DS_Store
+
+# Test reports
+junit.xml
+
+# FastAPI auto-generated docs cache (if any)
+docs/__pycache__/
+
+# Pydantic cache
+__pydantic__/
+
+# OpenAI cache or any temporary token files
+openai_api_key.txt
+
+# Docker
+*.dockerfile
+docker-compose.override.yml
