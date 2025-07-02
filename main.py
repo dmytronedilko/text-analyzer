@@ -1,18 +1,26 @@
-from fastapi import FastAPI, Body
+from fastapi import FastAPI, Request, Form
+from fastapi.templating import Jinja2Templates
+from fastapi.responses import HTMLResponse
 from dotenv import load_dotenv
 from openai import OpenAI
 import os
 
+load_dotenv()
+
 app = FastAPI()
 
-load_dotenv()
+templates = Jinja2Templates(directory="templates")
 
 client = OpenAI(
     api_key=os.getenv("OPENAI_API_KEY")
 )
 
-@app.post("/")
-def analysis(text: str = Body(...)) -> str:
+@app.get("/", response_class=HTMLResponse)
+async def get_form(request: Request):
+    return templates.TemplateResponse("form.html", {"request": request})
+
+@app.post("/", response_class=HTMLResponse)
+async def analysis(request: Request, text: str = Form(...)):
     try:
         response = client.responses.create(
             model="gpt-4.1",
@@ -31,10 +39,12 @@ def analysis(text: str = Body(...)) -> str:
                   f"Text:\n"
                   f"{text}"
         )
-        return response.output_text
+        feedback = response.output_text
     except Exception as e:
-        return f"Error: {str(e)}"
+        feedback = f"Error: {str(e)}"
+    return templates.TemplateResponse("result.html", {"request": request, "feedback": feedback, "original_text": text})
 
-@app.get("/")
-async def root():
-    return "App is running on port 8000"
+@app.get("/health")
+async def health_check():
+    return {"status": "App is running"}
+

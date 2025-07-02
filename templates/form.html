@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Text Analysis</title>
+    <style>
+        #loading {
+            display: none;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Enter text to analyze</h1>
+    <form id="analysis-form" action="/" method="post">
+        <label>
+            <textarea name="text" rows="10" cols="50" required></textarea>
+        </label><br>
+        <button type="submit" id="submit-btn">Analyze</button>
+    </form>
+    <div id="loading">Loading...</div>
+
+    <script>
+        const form = document.getElementById('analysis-form');
+        const loading = document.getElementById('loading');
+        const submitBtn = document.getElementById('submit-btn');
+
+        form.addEventListener('submit', () => {
+            loading.style.display = 'block';
+            submitBtn.disabled = true;
+        });
+    </script>
+</body>
+</html>
